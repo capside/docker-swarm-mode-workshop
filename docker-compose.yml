@@ -1,0 +1,26 @@
+version: "3"
+
+networks:
+    gallifrey:
+    
+services:
+    riversong:
+        image: ciberado/riversong
+        ports:
+            - 8888:8888
+        networks:
+            - gallifrey
+        deploy:
+            replicas: 1
+            labels: [apptype=internal]
+    thedoctor:
+        image: ciberado/thedoctor
+        ports:
+            - 80:80
+        networks:
+            - gallifrey
+        deploy:
+            replicas: 1
+            labels: [apptype=edge]
+        environment:
+            - INTERNAL_SERVICE_NAME=riversong
