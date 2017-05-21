@@ -26,7 +26,6 @@ $>sudo systemctl start docker
 * Lanzar visualizador de swarm dentro del nodo master (no es un servicio)
 ```
 $> docker run -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock --name visualizer dockersamples/visualizer
-$> exit
 ```
 * Acceder al visualizar [localhost:8080](http://localhost:8080)
 
