@@ -49,7 +49,7 @@ docker network rm gallifrey
 
 * Crea el stack con
 ```
-wget -O docker-compose.yml https://pastebin.com/1E02pXzT
+wget -O docker-compose.yml https://pastebin.com/raw/1E02pXzT
 docker stack deploy --compose-file docker-compose.yml test
 ```
 * Invoca la aplicación *edge* con ```curl http://$agentsfqdn:80```
