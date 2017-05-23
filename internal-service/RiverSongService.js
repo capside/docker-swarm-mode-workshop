@@ -11,10 +11,16 @@ Object.keys(ifaces).forEach(function (ifname) {
 });
 
 var server = http.createServer(function (request, response) {
-  response.writeHead(200, {'Content-Type': 'text/html'});
-  var message = 'I\'m Riversong, I hate you from ' + identity + '.';
+  response.writeHead(200, {'Content-Type': 'application/json'});
+  var content = {
+      name : 'Riversong',
+      photo: 'https://upload.wikimedia.org/wikipedia/en/3/3f/River_Song_Doctor_Who.png',
+      position: 'Archaeologist',
+      message : 'I hate you.',
+      identity: identity
+  };
     
-  response.end('<html><body>' + message + '</body></html>');
+  response.end(JSON.stringify(content));
 });
 
 server.listen(8888);
