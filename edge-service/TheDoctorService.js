@@ -1,6 +1,7 @@
 var http = require('http'),
     os = require('os');
 
+// CSS from http://codepen.io/anon/pen/LyMJqX
 var css = `
 <style>
 @import "https://fonts.googleapis.com/css?family=Open+Sans:300,400";
