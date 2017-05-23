@@ -25,4 +25,4 @@ var server = http.createServer(function (request, response) {
 
 server.listen(8888);
 
-console.log('Riversong initialized.');
+console.log('Riversong initialized on port 8888.');
