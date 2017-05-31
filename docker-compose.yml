@@ -5,7 +5,7 @@ networks:
     
 services:
     riversong:
-        image: ciberado/riversong
+        image: {{registry}}/tardis/riversong
         ports:
             - 8888:8888
         networks:
@@ -14,7 +14,7 @@ services:
             replicas: 1
             labels: [apptype=internal]
     thedoctor:
-        image: ciberado/thedoctor
+        image: {{registry}}/tardis/thedoctor
         ports:
             - 80:80
         networks:
