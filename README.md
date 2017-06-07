@@ -1,62 +1,55 @@
-# Docker y Swarm mode
+# Docker Swarm mode continuous delivery
 
-## Despliegue del cluster en Azure
+## Deploying the cluster
 
-* [Lanzar el cluster](https://github.com/Azure/azure-quickstart-templates/tree/master/101-acsengine-swarmmode)
+* [Launch the cluster](https://github.com/Azure/azure-quickstart-templates/tree/master/101-acsengine-swarmmode)
 
 ![Cluster](https://raw.githubusercontent.com/Azure/acs-engine/master/docs/images/swarm.png)
 
-* Conectar al master creando un túnel al puerto 8080
+* Tunneling port 8080 from localhost to the master
 ```
 username=<username>
 masterfqdn=<masterfqdn>
 agentsfqdn=<agentsfqdn>
 ssh -L 8080:localhost:8080 $username@$masterfqdn
-
 ```
-* Activa el modo experimental añadiendo ```{"experimental":true}``` al fichero ```/etc/docker/daemon.json``` del master y reiniciando
-```
-$>sudo vim /etc/docker/daemon.json
-$>sudo systemctl stop docker
-$>sudo systemctl start docker
-```
-* Alternativamente puedes crear [un cluster local](https://pastebin.com/KizLE6Cf) usando *Docker in Docker*.
 
-## Visualización del estado del clúster
+## Visualizing the state of the cluster
 
-* Lanzar visualizador de swarm dentro del nodo master (no es un servicio)
+* Create a container with the visualizer in the master node (it is not a task of the cluster)
 ```
 $> docker run -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock --name visualizer dockersamples/visualizer
 ```
-* Acceder al visualizar [localhost:8080](http://localhost:8080)
+* Access the visualizer at [localhost:8080](http://localhost:8080)
 
-## Despliegue manual de la aplicación
+## Manual deployment of the application
 
-* Desplegar manualmente la aplicación
+* Steps to manually deploy both apps in a new network:
 ```
 docker network create --driver overlay gallifrey
 docker service create --name riversong --publish 8888:8888 --network gallifrey ciberado/riversong
 docker service create --name thedoctor --publish 80:80 --env INTERNAL_SERVICE_NAME=riversong  --network gallifrey ciberado/thedoctor
 ```
-* Invoca la aplicación *edge* con ```curl http://$agentsfqdn:80```
-* Repliega con
+* Check the *edge* microservice with ```curl http://$agentsfqdn:80```
+* Undeploy the application with:
 ```
 docker service rm thedoctor
 docker service rm riversong
 docker network rm gallifrey
 ```
 
-## Despliegue de la aplicación con Docker Compose 
+## Automatic deployment with Docker Compose
 
-* Crea el stack con
+* Create the new stack:
 ```
-wget -O docker-compose.yml https://pastebin.com/raw/1E02pXzT
+wget -O docker-compose.yml https://raw.githubusercontent.com/capside/docker-swarm-mode-workshop/master/docker-compose.yml
 docker stack deploy --with-registry-auth --compose-file docker-compose.yml test
 ```
-* Invoca la aplicación *edge* con ```curl http://$agentsfqdn:80```
-* docker service scale test_riversong=2
-* Invocando de nuevo el servicio *edge* deberías ver cómo cambia la IP del servicio interno.
- 
+* Check the *edge* microservice with ```curl http://$agentsfqdn:80```
+* Scaledown the *inner* service to 1
+```
+docker service scale test_riversong=1
+``` 
 
 
 
