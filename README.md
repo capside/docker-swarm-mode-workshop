@@ -42,7 +42,7 @@ docker network rm gallifrey
 
 * Create the new stack:
 ```
-wget -O docker-compose.yml https://raw.githubusercontent.com/capside/docker-swarm-mode-workshop/master/docker-compose.yml
+wget -O docker-compose.yml https://github.com/capside/docker-swarm-mode-workshop/blob/manualdeployment/docker-compose.yml   
 docker stack deploy --with-registry-auth --compose-file docker-compose.yml test
 ```
 * Check the *edge* microservice with ```curl http://$agentsfqdn:80```
