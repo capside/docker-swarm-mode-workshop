@@ -193,5 +193,4 @@ var server = http.createServer(function (drRequest, doctorResponse) {
 });
 
 server.listen(80);
-
 console.log('The Doctor initialized.');
