@@ -5,7 +5,7 @@ networks:
     
 services:
     riversong:
-        image: {{registry}}/tardis/riversong
+        image: {{registry}}/riversong
         ports:
             - 8888:8888
         networks:
@@ -14,7 +14,7 @@ services:
             replicas: 2
             labels: [apptype=internal]
     thedoctor:
-        image: {{registry}}/tardis/thedoctor
+        image: {{registry}}/thedoctor
         ports:
             - 80:80
         networks:
