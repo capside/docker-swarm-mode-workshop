@@ -1,4 +1,4 @@
-# Docker Swarm mode continuous delivery
+# Docker Swarm mode continuous delivery pipeline
 
 ## Deploying the cluster
 
