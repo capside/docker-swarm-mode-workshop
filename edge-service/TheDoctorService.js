@@ -51,7 +51,7 @@ body {
   display: block;
   width: 190px;
   height: 300px;
-  background:  	cadetblue;
+  background:  	green;
   position: absolute;
   animation: rotatemagic 0.75s cubic-bezier(0.425, 1.04, 0.47, 1.105) 1s both;
 }
